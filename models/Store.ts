@@ -1,22 +1,22 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
-export interface Stores extends mongoose.Document {
+export interface IStore {
+  _id: Types.ObjectId,
   name: string;
-  deleted_at: Date;
-  updated_at: Date;
-  created_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
 }
 
-const StoreSchema = new mongoose.Schema<Stores>({
+const StoreSchema = new Schema<IStore>({
   name: {
     type: String,
     required: [true, "Please provide a name for this item."],
     maxlength: [60, "Name cannot be more than 50 characters"],
   },
-  created_at: { type: Date, default: Date.now },
-  updated_at: { type: Date, default: Date.now },
-  deleted_at: { type: Date, default: null },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+  deletedAt: { type: Date, default: null },
 });
 
-console.log(mongoose.models);
-export default mongoose.models.stores || mongoose.model<Stores>("stores", StoreSchema);
+export default mongoose.models.stores<IStore> || mongoose.model<IStore>("stores", StoreSchema);

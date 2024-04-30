@@ -1,36 +1,38 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
-export interface Items extends mongoose.Document {
+export interface IItem {
+  _id: Types.ObjectId;
   name: string;
-  image_url: string;
-  store_id: mongoose.Types.ObjectId;
+  imageUrl: string;
+  storeId: string;
   status: 'incomplete' | 'completed';
-  created_at: Date;
-  updated_at: Date;
-  deleted_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
 }
 
-const ItemSchema = new mongoose.Schema<Items>({
+const ItemSchema = new Schema<IItem>({
   name: {
     type: String,
     required: [true, "Please provide a name for this item."],
     maxlength: [60, "Name cannot be more than 50 characters"],
   },
-  image_url: {
+  imageUrl: {
     required: false,
     type: String,
   },
-  store_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Store'
+  storeId: {
+    type: String,
+    required: [true, 'Please provide a store id for this item']
   },
   status: {
     type: String,
+    default: 'incomplete',
     required: [true, 'Please provide a status for this item']
   },
-  created_at: { type: Date, default: Date.now },
-  updated_at: { type: Date, default: Date.now },
-  deleted_at: { type: Date, default: null },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+  deletedAt: { type: Date, default: null },
 });
 
-export default mongoose.models.Item || mongoose.model<Items>("Item", ItemSchema);
+export default mongoose.models.items || mongoose.model<IItem>("items", ItemSchema);
