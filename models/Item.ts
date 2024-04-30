@@ -4,7 +4,7 @@ export interface Items extends mongoose.Document {
   name: string;
   image_url: string;
   store_id: mongoose.Types.ObjectId;
-  status: 'active' | 'completed';
+  status: 'incomplete' | 'completed';
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;
