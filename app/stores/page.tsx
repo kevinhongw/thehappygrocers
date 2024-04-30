@@ -29,7 +29,6 @@ export const getStores = async () => {
 	/* find all the data in our database */
 	const result = await Store.find({});
 
-	console.log('@@@', result);
 	/* Ensures all objectIds and nested objectIds are serialized as JSON data */
 	const stores = result.map((doc) => {
 		const store = JSON.parse(JSON.stringify(doc));
