@@ -18,4 +18,4 @@ const StoreSchema = new mongoose.Schema<Stores>({
   deleted_at: { type: Date, default: null },
 });
 
-export default mongoose.models.Store || mongoose.model<Stores>("Store", StoreSchema);
+export default mongoose.models.Store || mongoose.model<Stores>("stores", StoreSchema);
