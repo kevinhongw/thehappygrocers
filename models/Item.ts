@@ -5,7 +5,8 @@ export interface IItem {
   name: string;
   imageUrl: string;
   storeId: string;
-  status: 'incomplete' | 'completed';
+  completed: boolean;
+  // status: 'incomplete' | 'completed';
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
@@ -23,16 +24,21 @@ const ItemSchema = new Schema<IItem>({
   },
   storeId: {
     type: String,
-    required: [true, 'Please provide a store id for this item']
+    required: [true, "Please provide a store id for this item"],
   },
-  status: {
-    type: String,
-    default: 'incomplete',
-    required: [true, 'Please provide a status for this item']
+  completed: {
+    type: Boolean,
+    default: false,
   },
+  // status: {
+  //   type: String,
+  //   default: 'incomplete',
+  //   required: [true, 'Please provide a status for this item']
+  // },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   deletedAt: { type: Date, default: null },
 });
 
-export default mongoose.models.items || mongoose.model<IItem>("items", ItemSchema);
+export default mongoose.models.items ||
+  mongoose.model<IItem>("items", ItemSchema);

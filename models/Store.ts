@@ -1,7 +1,7 @@
 import mongoose, { Schema, Types } from "mongoose";
 
 export interface IStore {
-  _id: Types.ObjectId,
+  _id: Types.ObjectId;
   name: string;
   createdAt: Date;
   updatedAt: Date;
@@ -19,4 +19,5 @@ const StoreSchema = new Schema<IStore>({
   deletedAt: { type: Date, default: null },
 });
 
-export default mongoose.models.stores<IStore> || mongoose.model<IStore>("stores", StoreSchema);
+export default mongoose.models.stores<IStore> ||
+  mongoose.model<IStore>("stores", StoreSchema);

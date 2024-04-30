@@ -1,8 +1,10 @@
-import Link from "next/link";
-import dbConnect from "@/libs/dbConnect";
-import Item, {IItem} from "@/models/Item";
-import CreateItemInput from "./_components/CreateItemInput";
-import { revalidatePath } from 'next/cache'
+import Link from 'next/link';
+import dbConnect from '@/libs/dbConnect';
+import Item, { IItem } from '@/models/Item';
+import CreateItemInput from './_components/CreateItemInput';
+import { revalidatePath } from 'next/cache';
+import ItemCard from './_components/ItemCard';
+import { ObjectId } from 'mongodb';
 
 type Props = {
   params: {
@@ -11,48 +13,66 @@ type Props = {
 };
 
 const StorePage = async ({ params }: Props) => {
-	const items = await getItems(params.id);
-  
+  const items = await getItems(params.id);
+
   async function createItem(value: string) {
-    'use server'
- 
-    await createItemDB(value, params.id)
-    revalidatePath(`/stores/${params.id}`)
+    'use server';
+
+    await createItemDB(value, params.id);
+    revalidatePath(`/stores/${params.id}`);
   }
 
-	return (
-		<div className="p-8 flex flex-col gap-8">
+  async function updateItem(itemId: ObjectId, value: boolean) {
+    'use server';
+
+    await updateItemDB(itemId, value);
+    revalidatePath(`/stores/${params.id}`);
+  }
+
+  const incompleteItem = items.filter((item) => !item.completed);
+  const completedItem = items.filter((item) => item.completed);
+
+  return (
+    <div className="p-8 flex flex-col gap-8">
       <CreateItemInput onAction={createItem} />
-			{items.map((item) => (
-				<div key={item._id.toString()} className="card card-bordered shadow-md h-20 p-6 flex justify-center text-left">
-					<div>
-						{item.name}
-					</div>
-				</div>
-			))}
-		</div>
-	);
+      {incompleteItem.map((item) => (
+        <ItemCard key={item._id.toString()} item={item} onChange={updateItem} />
+      ))}
+      {completedItem.map((item) => (
+        <ItemCard key={item._id.toString()} item={item} onChange={updateItem} />
+      ))}
+    </div>
+  );
 };
 
 const getItems = async (storeId: string) => {
-	await dbConnect();
+  await dbConnect();
 
-	const items: IItem[] = await Item.find({ storeId: storeId });
+  const items: IItem[] = await Item.find({ storeId: storeId });
 
-	return items;
+  return items;
 };
 
 const createItemDB = async (name: string, storeId: string) => {
   await dbConnect();
 
-  console.log('@@@-1', name, storeId)
-
   try {
     const item: IItem = await Item.create({ name, storeId });
-    console.log('@@@', item);
-    
+
     return item;
-  } catch(error: any) {
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+const updateItemDB = async (itemId: ObjectId, completed: boolean) => {
+  await dbConnect();
+
+  console.log('@@@-1', itemId);
+
+  try {
+    await Item.updateOne({ _id: itemId }, { completed });
+  } catch (error: any) {
     throw error;
   }
 };

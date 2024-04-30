@@ -1,18 +1,15 @@
-"use client"
-import { useRouter } from 'next/navigation';
-import React from 'react'
+"use client";
+import { useRouter } from "next/navigation";
+import React from "react";
 
-type Props = {
-};
+type Props = {};
 
 const RefreshButton: React.FC<Props> = () => {
   const router = useRouter();
   const handleRefresh = () => {
     router.refresh();
-  }
-    return (
-        <button onClick={handleRefresh}>Refresh</button>
-    );
-}
+  };
+  return <button onClick={handleRefresh}>Refresh</button>;
+};
 
-export default RefreshButton
+export default RefreshButton;
