@@ -36,10 +36,10 @@ const StorePage = async ({ params }: Props) => {
     <div className="p-8 flex flex-col gap-8">
       <CreateItemInput onAction={createItem} />
       {incompleteItem.map((item) => (
-        <ItemCard key={item._id.toString()} item={item} onChange={updateItem} />
+        <ItemCard key={item._id} item={item} onChange={updateItem} />
       ))}
       {completedItem.map((item) => (
-        <ItemCard key={item._id.toString()} item={item} onChange={updateItem} />
+        <ItemCard key={item._id} item={item} onChange={updateItem} />
       ))}
     </div>
   );
@@ -50,7 +50,7 @@ const getItems = async (storeId: string) => {
 
   const items: IItem[] = await Item.find({ storeId: storeId });
 
-  return items;
+  return items.map((item) => JSON.parse(JSON.stringify(item)));
 };
 
 const createItemDB = async (name: string, storeId: string) => {
