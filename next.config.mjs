@@ -8,6 +8,16 @@ const nextConfig = {
     compiler: {
       removeConsole: process.env.NODE_ENV !== "development", // Remove console.log in production
     },
+    async redirects() {
+      return [
+        // Basic redirect
+        {
+          source: '/',
+          destination: '/stores',
+          permanent: true,
+        },
+      ]
+    },
   };
 
 // Configuration object tells the next-pwa plugin 
