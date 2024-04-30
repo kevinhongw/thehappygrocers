@@ -32,7 +32,7 @@ export default async function StoreLayout({
 }
 
 /* Retrieves pet(s) data from mongodb database */
-export const getStoreById = async (storeId: string) => {
+const getStoreById = async (storeId: string) => {
 	await dbConnect();
 
 	/* find all the data in our database */

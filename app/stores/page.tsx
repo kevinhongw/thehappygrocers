@@ -32,7 +32,7 @@ const StoreList = async () => {
 };
 
 /* Retrieves pet(s) data from mongodb database */
-export const getStores = async () => {
+const getStores = async () => {
 	await dbConnect();
 
 	/* find all the data in our database */

@@ -34,7 +34,7 @@ const StorePage = async ({ params }: Props) => {
 	);
 };
 
-export const getItems = async (storeId: string) => {
+const getItems = async (storeId: string) => {
 	await dbConnect();
 
 	const items: IItem[] = await Item.find({ storeId: storeId });
@@ -42,7 +42,7 @@ export const getItems = async (storeId: string) => {
 	return items;
 };
 
-export const createItemDB = async (name: string, storeId: string) => {
+const createItemDB = async (name: string, storeId: string) => {
   await dbConnect();
 
   console.log('@@@-1', name, storeId)
