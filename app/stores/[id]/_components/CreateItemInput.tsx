@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
 type Props = {
   onAction: (value: string) => void;
@@ -8,11 +8,11 @@ type Props = {
 
 const CreateItemInput: React.FC<Props> = ({ onAction }) => {
   // const formRef = React.useRef<HTMLFormElement | null>(null);
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState('');
 
   const handleOnSubmit = (formData: FormData) => {
     onAction(value);
-    setValue("");
+    setValue('');
   };
 
   return (

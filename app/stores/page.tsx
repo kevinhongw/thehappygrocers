@@ -1,6 +1,6 @@
-import Link from "next/link";
-import dbConnect from "../../libs/dbConnect";
-import Store, { IStore } from "../../models/Store";
+import Link from 'next/link';
+import dbConnect from '../../libs/dbConnect';
+import Store, { IStore } from '../../models/Store';
 
 type Props = {};
 
@@ -10,7 +10,7 @@ const StoreList = async () => {
     <div className="flex flex-col">
       <div
         className="header flex justify-between relative h-20 items-center"
-        style={{ background: "#d2f0b4" }}
+        style={{ background: '#d2f0b4' }}
       >
         {/* <div /> */}
         <div className="w-full text-center text-xl">Happy Grocers</div>

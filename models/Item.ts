@@ -1,4 +1,4 @@
-import mongoose, { Schema, Types } from "mongoose";
+import mongoose, { Schema, Types } from 'mongoose';
 
 export interface IItem {
   _id: Types.ObjectId;
@@ -15,8 +15,8 @@ export interface IItem {
 const ItemSchema = new Schema<IItem>({
   name: {
     type: String,
-    required: [true, "Please provide a name for this item."],
-    maxlength: [60, "Name cannot be more than 50 characters"],
+    required: [true, 'Please provide a name for this item.'],
+    maxlength: [60, 'Name cannot be more than 50 characters'],
   },
   imageUrl: {
     required: false,
@@ -24,7 +24,7 @@ const ItemSchema = new Schema<IItem>({
   },
   storeId: {
     type: String,
-    required: [true, "Please provide a store id for this item"],
+    required: [true, 'Please provide a store id for this item'],
   },
   completed: {
     type: Boolean,
@@ -41,4 +41,4 @@ const ItemSchema = new Schema<IItem>({
 });
 
 export default mongoose.models.items ||
-  mongoose.model<IItem>("items", ItemSchema);
+  mongoose.model<IItem>('items', ItemSchema);

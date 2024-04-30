@@ -1,8 +1,8 @@
-import Link from "next/link";
-import dbConnect from "@/libs/dbConnect";
-import Store, { IStore } from "@/models/Store";
-import { revalidatePath } from "next/cache";
-import RefreshButton from "./_components/RefreshButton";
+import Link from 'next/link';
+import dbConnect from '@/libs/dbConnect';
+import Store, { IStore } from '@/models/Store';
+import { revalidatePath } from 'next/cache';
+import RefreshButton from './_components/RefreshButton';
 
 export default async function StoreLayout({
   params,
@@ -19,7 +19,7 @@ export default async function StoreLayout({
     <div className="flex flex-col">
       <div
         className="header flex justify-between relative h-20 items-center"
-        style={{ background: "#d2f0b4" }}
+        style={{ background: '#d2f0b4' }}
       >
         <Link className="absolute left-5" href="/stores">
           back
@@ -43,7 +43,7 @@ const getStoreById = async (storeId: string) => {
 
   if (!store) {
     return {
-      name: "error",
+      name: 'error',
     };
   }
 
