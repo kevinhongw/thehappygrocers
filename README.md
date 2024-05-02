@@ -29,9 +29,11 @@ Right now, this application is just a glorified to-do list app, but it's a good 
 
 ## Road Map
 
+- [ ] Design update
 - [ ] Specify quantity
 - [ ] Display aggregated item count on store list
 - [ ] Add notes to each store/item
 - [ ] Authentication (who add what)
 - [ ] Image support (upload image)
+- [ ] Realtime update
 - [ ] Use code to join household (invite by code)
