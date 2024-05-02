@@ -1,11 +1,10 @@
 'use client';
 
-import { IItem } from '@/models/Item';
-import { ObjectId } from 'mongodb';
+import { SerializedItem } from '@/models/Item';
 import React from 'react';
 type Props = {
-  item: IItem;
-  onChange: (itemId: ObjectId, value: boolean) => void;
+  item: SerializedItem;
+  onChange: (itemId: string, value: boolean) => void;
 };
 
 const ItemCard: React.FC<Props> = ({ item, onChange }) => {

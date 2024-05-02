@@ -3,15 +3,15 @@
 import React from 'react';
 
 type Props = {
-  onAction: (value: string) => void;
+  disabled: boolean;
+  onCreate: (value: string) => void;
 };
 
-const CreateItemInput: React.FC<Props> = ({ onAction }) => {
-  // const formRef = React.useRef<HTMLFormElement | null>(null);
+const CreateItemInput: React.FC<Props> = ({ disabled, onCreate }) => {
   const [value, setValue] = React.useState('');
 
-  const handleOnSubmit = (formData: FormData) => {
-    onAction(value);
+  const handleOnSubmit = () => {
+    onCreate(value);
     setValue('');
   };
 
@@ -25,6 +25,7 @@ const CreateItemInput: React.FC<Props> = ({ onAction }) => {
           placeholder="New item"
           value={value}
           onChange={(event) => setValue(event.target.value)}
+          disabled={disabled}
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"

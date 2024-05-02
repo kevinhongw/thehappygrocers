@@ -12,6 +12,10 @@ export interface IItem {
   deletedAt: Date;
 }
 
+export type SerializedItem = IItem & {
+  _id: string;
+};
+
 const ItemSchema = new Schema<IItem>({
   name: {
     type: String,
