@@ -48,7 +48,7 @@ const ItemList: React.FC<Props> = ({ items }) => {
   );
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       {!!items && items.length === 0 && <div>No item</div>}
       {incompleteItem.map((item) => (
         <ItemCard
