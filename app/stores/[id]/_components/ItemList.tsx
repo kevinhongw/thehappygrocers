@@ -4,6 +4,8 @@ import { SerializedItem } from '@/models/Item';
 import React, { useOptimistic } from 'react';
 import ItemCard from './ItemCard';
 import { updateItem } from '@/app/actions/updateItem';
+import { deleteItem } from '@/app/actions/deleteItem';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   items: SerializedItem[];
@@ -11,6 +13,7 @@ type Props = {
 };
 
 const ItemList: React.FC<Props> = ({ items }) => {
+  const router = useRouter();
   const [optimisticItems, addOptimisticItem] = useOptimistic<
     SerializedItem[],
     { itemId: string; completed: boolean }
@@ -32,6 +35,11 @@ const ItemList: React.FC<Props> = ({ items }) => {
     }
   };
 
+  const handleItemDelete = async (itemId: string) => {
+    await deleteItem(itemId);
+    router.refresh();
+  };
+
   const incompleteItem = (optimisticItems || []).filter(
     (item) => !item.completed,
   );
@@ -43,10 +51,20 @@ const ItemList: React.FC<Props> = ({ items }) => {
     <div>
       {!!items && items.length === 0 && <div>No item</div>}
       {incompleteItem.map((item) => (
-        <ItemCard key={item._id} item={item} onChange={handleItemChange} />
+        <ItemCard
+          key={item._id}
+          item={item}
+          onChange={handleItemChange}
+          onDelete={handleItemDelete}
+        />
       ))}
       {completedItem.map((item) => (
-        <ItemCard key={item._id} item={item} onChange={handleItemChange} />
+        <ItemCard
+          key={item._id}
+          item={item}
+          onChange={handleItemChange}
+          onDelete={handleItemDelete}
+        />
       ))}
     </div>
   );
