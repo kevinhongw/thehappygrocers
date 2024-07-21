@@ -36,7 +36,7 @@ export const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
           Are you sure you want to delete <strong>{item.name}</strong>?
         </p>
         <div className="modal-action">
-          <form method="dialog">
+          <form method="dialog" className="modal-backdrop">
             <button
               className="btn btn-error"
               onClick={handleOnDelete}
