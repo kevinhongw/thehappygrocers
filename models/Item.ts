@@ -6,7 +6,7 @@ export interface IItem {
   imageUrl: string;
   storeId: string;
   completed: boolean;
-  // status: 'incomplete' | 'completed';
+  status: 'queued' | 'purchased' | 'saved';
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
@@ -34,11 +34,11 @@ const ItemSchema = new Schema<IItem>({
     type: Boolean,
     default: false,
   },
-  // status: {
-  //   type: String,
-  //   default: 'incomplete',
-  //   required: [true, 'Please provide a status for this item']
-  // },
+  status: {
+    type: String,
+    default: 'queued',
+    required: [true, 'Please provide a status for this item'],
+  },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   deletedAt: { type: Date, default: null },

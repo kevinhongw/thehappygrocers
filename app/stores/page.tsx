@@ -1,32 +1,39 @@
 import Link from 'next/link';
 import dbConnect from '../../libs/dbConnect';
 import Store, { IStore } from '../../models/Store';
+import RefreshButton from './components/RefreshButton';
+import { Suspense } from 'react';
 
 type Props = {};
 
 const StoreList = async () => {
   const stores = await getStores();
+
   return (
     <div className="flex flex-col">
       <div
         className="header flex justify-between relative h-20 items-center"
         style={{ background: '#d2f0b4' }}
       >
-        {/* <div /> */}
         <div className="w-full text-center text-xl">Happy Grocers</div>
         <div className="absolute right-5">
-          <button className="">refresh</button>
+          <Suspense fallback={<div>Loading stores...</div>}>
+            <RefreshButton />
+          </Suspense>
         </div>
       </div>
       <div>
         <div className="p-8 flex flex-col gap-8">
           {stores.map((store) => (
-            <div
+            <Link
               key={store._id.toString()}
-              className="card card-bordered shadow-md h-28 p-6 flex justify-center text-left"
+              href={`/stores/${store._id.toString()}`}
+              className="h-28"
             >
-              <Link href={`/stores/${store._id.toString()}`}>{store.name}</Link>
-            </div>
+              <button className="btn bg-white font-light text-xl w-full h-full">
+                {store.name}
+              </button>
+            </Link>
           ))}
         </div>
       </div>

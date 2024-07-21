@@ -1,71 +1,40 @@
-'use client';
-
 import { SerializedItem } from '@/models/Item';
-import React, { useOptimistic } from 'react';
-import ItemCard from './ItemCard';
-import { updateItem } from '@/app/actions/updateItem';
-import { deleteItem } from '@/app/actions/deleteItem';
-import { useRouter } from 'next/navigation';
+import { CartItemCard } from './CartItemCard';
+
+import { SavedItemCard } from './SavedItemCard';
 
 type Props = {
   items: SerializedItem[];
   storeId: string;
 };
 
-const ItemList: React.FC<Props> = ({ items }) => {
-  const router = useRouter();
-  const [optimisticItems, addOptimisticItem] = useOptimistic<
-    SerializedItem[],
-    { itemId: string; completed: boolean }
-  >(items, (state, { itemId, completed }) => {
-    for (const item of state) {
-      if (item._id === itemId) {
-        item.completed = completed;
-      }
-    }
-    return [...state];
-  });
-
-  const handleItemChange = async (itemId: string, completed: boolean) => {
-    addOptimisticItem({ itemId, completed });
-    try {
-      await updateItem(itemId, completed);
-    } catch (error: any) {
-      console.error(error);
-    }
-  };
-
-  const handleItemDelete = async (itemId: string) => {
-    await deleteItem(itemId);
-    router.refresh();
-  };
-
-  const incompleteItem = (optimisticItems || []).filter(
-    (item) => !item.completed,
-  );
-  const completedItem = (optimisticItems || []).filter(
-    (item) => item.completed,
-  );
+const ItemList = ({ items }: Props) => {
+  const incompleteItem = (items || [])
+    .filter((item) => !item.completed)
+    .sort(
+      (a, b) =>
+        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+    );
+  const completedItem = (items || [])
+    .filter((item) => item.completed)
+    .sort(
+      (a, b) =>
+        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+    );
 
   return (
     <div className="flex flex-col gap-4">
-      {!!items && items.length === 0 && <div>No item</div>}
+      <h3 className="text-xl font-semibold">Cart</h3>
       {incompleteItem.map((item) => (
-        <ItemCard
-          key={item._id}
-          item={item}
-          onChange={handleItemChange}
-          onDelete={handleItemDelete}
-        />
+        <CartItemCard key={item._id} item={item} />
       ))}
+      {incompleteItem.length === 0 && <div>No item in cart</div>}
+
+      <h3 className="text-xl font-semibold">Saved for later</h3>
       {completedItem.map((item) => (
-        <ItemCard
-          key={item._id}
-          item={item}
-          onChange={handleItemChange}
-          onDelete={handleItemDelete}
-        />
+        <SavedItemCard key={item._id} item={item} />
       ))}
+      {completedItem.length === 0 && <div>No item saved</div>}
     </div>
   );
 };

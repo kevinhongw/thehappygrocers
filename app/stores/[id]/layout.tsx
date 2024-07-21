@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import dbConnect from '@/libs/dbConnect';
 import Store, { IStore } from '@/models/Store';
-import { revalidatePath } from 'next/cache';
-import RefreshButton from './_components/RefreshButton';
+import RefreshButton from '../components/RefreshButton';
+import { ArrowLeftIcon } from '@radix-ui/react-icons';
 
 export default async function StoreLayout({
   params,
@@ -22,7 +22,9 @@ export default async function StoreLayout({
         style={{ background: '#d2f0b4' }}
       >
         <Link className="absolute left-5" href="/stores">
-          back
+          <button className="btn btn-outline btn-sm">
+            <ArrowLeftIcon className="h-5 w-5" />
+          </button>
         </Link>
         <div className="w-full text-center text-xl">{store.name}</div>
         <div className="absolute right-5">
