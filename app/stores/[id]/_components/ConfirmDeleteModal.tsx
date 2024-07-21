@@ -9,9 +9,7 @@ interface ConfirmDeleteModalProps {
   item: IItem;
 }
 
-export const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
-  item,
-}) => {
+export const ConfirmDeleteModal = ({ item }: ConfirmDeleteModalProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
@@ -29,7 +27,10 @@ export const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
   };
 
   return (
-    <dialog id="confirm-delete" className="modal modal-bottom sm:modal-middle">
+    <dialog
+      id={`confirm-delete-${item._id}`}
+      className="modal modal-bottom sm:modal-middle"
+    >
       <div className="modal-box">
         <h3 className="font-bold text-lg">Delete item</h3>
         <p className="py-4">
@@ -40,7 +41,9 @@ export const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
             className="btn btn-outline"
             onClick={() =>
               (
-                document.getElementById('confirm-delete') as HTMLDialogElement
+                document.getElementById(
+                  `confirm-delete-${item._id}`,
+                ) as HTMLDialogElement
               ).close()
             }
           >

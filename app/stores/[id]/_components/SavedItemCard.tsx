@@ -37,7 +37,9 @@ export const SavedItemCard: React.FC<Props> = ({ item }) => {
         className="btn btn-sm btn-outline bg-error"
         onClick={() =>
           (
-            document.getElementById('confirm-delete') as HTMLDialogElement
+            document.getElementById(
+              `confirm-delete-${item._id}`,
+            ) as HTMLDialogElement
           )?.showModal()
         }
       >
