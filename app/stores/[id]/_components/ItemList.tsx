@@ -8,7 +8,7 @@ type Props = {
   storeId: string;
 };
 
-const ItemList = ({ items }: Props) => {
+const ItemList = ({ items, storeId }: Props) => {
   const incompleteItem = (items || [])
     .filter((item) => !item.completed)
     .sort(
@@ -22,9 +22,22 @@ const ItemList = ({ items }: Props) => {
         new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
     );
 
+  const openResetModal = () =>
+    (
+      document.getElementById(`reset-store-${storeId}`) as HTMLDialogElement
+    )?.showModal();
+
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="text-xl font-semibold">Cart</h3>
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-semibold">Cart</h3>
+        <button
+          className={`btn btn-outline btn-sm ${incompleteItem.length === 0 ? 'hidden' : ''}`}
+          onClick={openResetModal}
+        >
+          Reset
+        </button>
+      </div>
       {incompleteItem.map((item) => (
         <CartItemCard key={item._id} item={item} />
       ))}

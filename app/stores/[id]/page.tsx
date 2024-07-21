@@ -1,5 +1,6 @@
 import { getStoreItems } from '@/app/actions/getStoreItems';
 import StoreItems from './_components/StoreItems';
+import { ConfirmResetModal } from './_components/ConfirmResetModal';
 
 type Props = {
   params: {
@@ -13,6 +14,7 @@ const StorePage = async ({ params }: Props) => {
   return (
     <div className="p-8 flex flex-col gap-8">
       <StoreItems storeId={params.id} items={items} />
+      <ConfirmResetModal storeId={params.id} />
     </div>
   );
 };
