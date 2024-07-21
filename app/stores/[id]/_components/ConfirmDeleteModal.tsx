@@ -35,18 +35,29 @@ export const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
         <p className="py-4">
           Are you sure you want to delete <strong>{item.name}</strong>?
         </p>
-        <div className="modal-action">
-          <form method="dialog" className="modal-backdrop">
-            <button
-              className="btn btn-error"
-              onClick={handleOnDelete}
-              disabled={loading}
-            >
-              {loading && <span className="loading loading-spinner"></span>}
-              Confirm
-            </button>
-          </form>
+        <div className="modal-action flex justify-between">
+          <button
+            className="btn btn-outline"
+            onClick={() =>
+              (
+                document.getElementById('confirm-delete') as HTMLDialogElement
+              ).close()
+            }
+          >
+            Cancel
+          </button>
+          <button
+            className="btn btn-error"
+            onClick={handleOnDelete}
+            disabled={loading}
+          >
+            {loading && <span className="loading loading-spinner"></span>}
+            Confirm
+          </button>
         </div>
+        {/* <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form> */}
       </div>
     </dialog>
   );
